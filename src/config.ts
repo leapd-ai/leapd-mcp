@@ -77,8 +77,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): LeapdConfig {
   if (!apiKey) {
     throw new ConfigError(
       "LEAPD_API_KEY is not set.\n\n" +
-        "Create a key at https://leapd.ai/settings/api and pass it to the MCP server:\n" +
-        "  claude mcp add leapd --env LEAPD_API_KEY=leapd_xxx -- npx -y @leapd/mcp\n\n" +
+        "Create a key at https://leapd.ai and pass it to the MCP server:\n" +
+        "  claude mcp add leapd --env LEAPD_API_KEY=leapd_xxx -- npx -y github:leapd-ai/leapd-mcp\n\n" +
         "Don't have an account yet? Sign up at https://leapd.ai",
     );
   }
@@ -86,7 +86,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): LeapdConfig {
   if (!apiKey.startsWith(API_KEY_PREFIX)) {
     throw new ConfigError(
       `LEAPD_API_KEY does not look like a Leapd API key (expected it to start with "${API_KEY_PREFIX}").\n` +
-        "Find yours at https://leapd.ai/settings/api",
+        "Find yours at https://leapd.ai",
     );
   }
 

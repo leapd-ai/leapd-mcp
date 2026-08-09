@@ -80,7 +80,7 @@ describe("LeapdClient.call", () => {
         assert.ok(error instanceof LeapdApiError);
         assert.equal(error.status, 401);
         assert.match(error.message, /LEAPD_API_KEY/);
-        assert.match(error.message, /leapd\.ai\/settings\/api/);
+        assert.match(error.message, /leapd\.ai/);
         return true;
       },
     );

@@ -49,12 +49,12 @@ function describeFailure(status: number, serverMessage: string | undefined): str
     case 401:
       return (
         "Leapd rejected the API key. Check LEAPD_API_KEY, or create a new key at " +
-        "https://leapd.ai/settings/api"
+        "https://leapd.ai"
       );
     case 402:
       return (
         "This action needs an active Leapd plan. " +
-        "Review your plan at https://leapd.ai/pricing"
+        "Review your plan at https://leapd.ai"
       );
     case 403:
       return (
