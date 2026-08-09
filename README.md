@@ -193,7 +193,20 @@ The server refuses to start without `LEAPD_API_KEY`, and returns an actionable e
 ### Product and free tools
 
 - [**Leapd AI co-founder**](https://www.leapd.ai/products/co-founder) — how the build-and-run engine works: the daily plan, the approval model, the morning brief
+- [**Go-to-market**](https://www.leapd.ai/products/gtm) — outreach, ad campaigns, and pipeline, run by agents
+- [**AI search visibility**](https://www.leapd.ai/products/ai-visibility) — audits, content, and citation tracking across AI engines
+- [**LinkedIn AI coworker**](https://www.leapd.ai/products/linkedin-ai-coworker) — voice-trained content, engagement, and qualified prospects
 - [**Free AI visibility checker**](https://www.leapd.ai/tools/ai-visibility-checker) — see where your brand is cited across AI search, no account needed
+- [**About Leapd**](https://www.leapd.ai/about)
+
+### Coming from a prototype builder
+
+Leapd plugs into app prototypes built elsewhere, and takes them from demo to a business with customers:
+
+- [Leapd vs Lovable](https://www.leapd.ai/compare/leapd-vs-lovable)
+- [Leapd vs Bolt](https://www.leapd.ai/compare/leapd-vs-bolt)
+- [Leapd vs Replit](https://www.leapd.ai/compare/leapd-vs-replit)
+- [Leapd vs Emergent](https://www.leapd.ai/compare/leapd-vs-emergent)
 
 ### Start here
 
