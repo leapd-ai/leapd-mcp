@@ -1,0 +1,59 @@
+{
+  "name": "@leapd/mcp",
+  "version": "1.0.0",
+  "description": "Official Leapd MCP server. Build and run a business from Claude Code, Codex, and any MCP client.",
+  "license": "MIT",
+  "author": "Leapd (https://leapd.ai)",
+  "homepage": "https://leapd.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leapd-ai/leapd-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leapd-ai/leapd-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "leapd",
+    "claude",
+    "claude-code",
+    "codex",
+    "ai-agent",
+    "startup",
+    "automation"
+  ],
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "bin": {
+    "leapd-mcp": "./dist/src/index.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "prepublishOnly": "npm run clean && npm run build && npm test",
+    "start": "node dist/src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
