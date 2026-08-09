@@ -8,6 +8,8 @@
  * Requires LEAPD_API_KEY. See https://leapd.ai
  */
 
+import { realpathSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { LeapdClient } from "./client.js";
@@ -45,10 +47,25 @@ async function main(): Promise<void> {
   process.stderr.write(`leapd-mcp ${SERVER_VERSION} ready (${config.apiBase})\n`);
 }
 
-const isEntrypoint =
-  process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`;
+/**
+ * True when this module was invoked as the process entrypoint.
+ *
+ * `process.argv[1]` is a symlink when the CLI runs through `npx` or a
+ * `node_modules/.bin` shim, so the path has to be resolved before comparing —
+ * a naive string compare silently skips `main()` and the server exits 0
+ * without ever speaking MCP.
+ */
+function isEntrypoint(): boolean {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  try {
+    return import.meta.url === pathToFileURL(realpathSync(entry)).href;
+  } catch {
+    return false;
+  }
+}
 
-if (isEntrypoint) {
+if (isEntrypoint()) {
   main().catch((error: unknown) => {
     const message =
       error instanceof ConfigError
