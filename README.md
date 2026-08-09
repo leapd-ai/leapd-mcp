@@ -6,9 +6,9 @@
 
 The official [Model Context Protocol](https://modelcontextprotocol.io) server for [Leapd](https://leapd.ai) — connect Claude Code or Codex to a Leapd account and ship a real business: positioning, a live site, and a daily plan that executes itself.
 
-[![npm](https://img.shields.io/npm/v/%40leapd%2Fmcp?color=111827&labelColor=111827)](https://www.npmjs.com/package/@leapd/mcp)
-[![node](https://img.shields.io/node/v/%40leapd%2Fmcp?color=111827&labelColor=111827)](https://nodejs.org)
-[![license](https://img.shields.io/npm/l/%40leapd%2Fmcp?color=111827&labelColor=111827)](./LICENSE)
+[![CI](https://github.com/leapd-ai/leapd-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/leapd-ai/leapd-mcp/actions/workflows/ci.yml)
+[![node](https://img.shields.io/badge/node-%E2%89%A520-111827)](https://nodejs.org)
+[![license](https://img.shields.io/badge/license-MIT-111827)](./LICENSE)
 
 [**leapd.ai**](https://leapd.ai) · [Get an API key](https://leapd.ai/settings/api) · [Docs](https://leapd.ai/docs)
 
@@ -38,7 +38,9 @@ Everything above happens inside your editor. Leapd does the work; this server is
 ### Claude Code
 
 ```bash
-claude mcp add leapd --env LEAPD_API_KEY=leapd_your_key -- npx -y @leapd/mcp
+claude mcp add leapd \
+  --env LEAPD_API_KEY=leapd_your_key \
+  -- npx -y github:leapd-ai/leapd-mcp
 ```
 
 Then `/mcp` inside Claude Code to confirm `leapd` is connected.
@@ -50,7 +52,7 @@ To share the server with your team, commit a `.mcp.json` at the repo root instea
   "mcpServers": {
     "leapd": {
       "command": "npx",
-      "args": ["-y", "@leapd/mcp"],
+      "args": ["-y", "github:leapd-ai/leapd-mcp"],
       "env": { "LEAPD_API_KEY": "${LEAPD_API_KEY}" }
     }
   }
@@ -64,13 +66,14 @@ Add to `~/.codex/config.toml`:
 ```toml
 [mcp_servers.leapd]
 command = "npx"
-args = ["-y", "@leapd/mcp"]
+args = ["-y", "github:leapd-ai/leapd-mcp"]
 env = { LEAPD_API_KEY = "leapd_your_key" }
 ```
 
 ### Any other MCP client
 
-The server speaks MCP over stdio. Run it with `npx -y @leapd/mcp` and `LEAPD_API_KEY` in the environment.
+The server speaks MCP over stdio. Run it with `npx -y github:leapd-ai/leapd-mcp`
+and `LEAPD_API_KEY` in the environment.
 
 ## Tools
 
