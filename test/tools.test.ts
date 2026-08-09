@@ -88,6 +88,30 @@ describe("server", () => {
     }
   });
 
+  it("exposes no scope or identity parameter on any tool", async () => {
+    // Scope must come from the API key alone. If a tool ever accepts a
+    // workspace/account/user id, a backend can be built that trusts it —
+    // which is an IDOR waiting to happen.
+    const forbidden = ["workspace_id", "workspace", "account_id", "user_id", "org_id", "tenant_id"];
+    const { client, close } = await connect();
+    try {
+      const { tools } = await client.listTools();
+      for (const tool of tools) {
+        const properties = Object.keys(
+          (tool.inputSchema.properties as Record<string, unknown> | undefined) ?? {},
+        );
+        for (const name of forbidden) {
+          assert.ok(
+            !properties.includes(name),
+            `${tool.name} exposes "${name}" — scope must be derived from the API key`,
+          );
+        }
+      }
+    } finally {
+      await close();
+    }
+  });
+
   it("rejects arguments that do not match the schema", async () => {
     const { client, close } = await connect();
     try {

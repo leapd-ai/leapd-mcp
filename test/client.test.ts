@@ -34,19 +34,35 @@ function json(body: unknown, status = 200): Response {
 }
 
 describe("LeapdClient.call", () => {
-  it("posts to the MCP route with bearer auth", async () => {
-    const { calls } = stubFetch(() => json({ workspace_id: "ws_1" }));
+  it("posts every operation to one endpoint with bearer auth", async () => {
+    const { calls } = stubFetch(() => json({ url: "https://acme.leapd.app" }));
 
-    const result = await new LeapdClient(CONFIG).call("launch-business", { idea: "x" });
+    const result = await new LeapdClient(CONFIG).call("launch_business", { idea: "x" });
 
-    assert.deepEqual(result, { workspace_id: "ws_1" });
+    assert.deepEqual(result, { url: "https://acme.leapd.app" });
     assert.equal(calls.length, 1);
-    assert.equal(calls[0]!.url, "https://api.leapd.ai/api/mcp/v1/launch-business");
+    assert.equal(calls[0]!.url, "https://api.leapd.ai/mcp");
     assert.equal(calls[0]!.init.method, "POST");
 
     const headers = calls[0]!.init.headers as Record<string, string>;
     assert.equal(headers["authorization"], `Bearer ${CONFIG.apiKey}`);
-    assert.equal(calls[0]!.init.body, JSON.stringify({ idea: "x" }));
+    // The operation rides in the body, so the URL never varies by tool.
+    assert.deepEqual(JSON.parse(String(calls[0]!.init.body)), {
+      op: "launch_business",
+      params: { idea: "x" },
+    });
+  });
+
+  it("uses the same path for every operation", async () => {
+    const { calls } = stubFetch(() => json({}));
+    const client = new LeapdClient(CONFIG);
+
+    for (const op of ["get_workspace", "list_tasks", "run_task", "get_document"]) {
+      await client.call(op, {});
+    }
+
+    const paths = new Set(calls.map((c) => new URL(c.url).pathname));
+    assert.deepEqual([...paths], ["/mcp"], "operation names must not appear in the URL");
   });
 
   it("sends the key to the configured Leapd host only", async () => {

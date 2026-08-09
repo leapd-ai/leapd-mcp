@@ -1,8 +1,12 @@
 /**
  * Tool surface for the Leapd MCP server.
  *
- * Six tools, one job: let an agent stand up a business on Leapd and drive the
- * daily work it generates. Each tool maps to a single Leapd API endpoint.
+ * Seven tools, one job: let an agent stand up a business on Leapd and drive the
+ * daily work it generates.
+ *
+ * No tool takes a workspace, account, or user identifier. Scope is derived
+ * server-side from the API key, so a caller cannot address a business it does
+ * not own — there is no parameter through which it could try.
  */
 
 import { z } from "zod";
@@ -10,12 +14,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { LeapdApiError, type LeapdClient } from "./client.js";
 
-const workspaceId = z
-  .string()
-  .min(1)
-  .describe("Workspace id. Omit to use the default workspace on the account.");
-
-/** Renders a successful API payload for the model. */
+/** Renders a successful payload for the model. */
 function ok(data: unknown): CallToolResult {
   return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
 }
@@ -50,8 +49,8 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
       title: "Launch a business",
       description:
         "Turn an idea into a live business on Leapd: positioning, a deployed landing page, " +
-        "and a day-one plan of concrete tasks. Returns the workspace id and its public URL. " +
-        "Call this once per business — use get_workspace afterwards.",
+        "and a day-one plan of concrete tasks. Returns the public URL. " +
+        "Call this once — use get_workspace afterwards.",
       inputSchema: {
         idea: z
           .string()
@@ -67,7 +66,7 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
       },
       annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
     },
-    async (args) => run(() => client.call("launch-business", args)),
+    async (args) => run(() => client.call("launch_business", args)),
   );
 
   server.registerTool(
@@ -75,12 +74,12 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
     {
       title: "Get workspace status",
       description:
-        "Current state of a business: live URL, deployment and domain status, plan day, " +
+        "Current state of your business: live URL, deployment and domain status, plan day, " +
         "and a summary of what is in flight.",
-      inputSchema: { workspace_id: workspaceId.optional() },
+      inputSchema: {},
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
-    async (args) => run(() => client.call("get-workspace", args)),
+    async () => run(() => client.call("get_workspace")),
   );
 
   server.registerTool(
@@ -88,10 +87,9 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
     {
       title: "List tasks",
       description:
-        "The current plan for a business — what is queued, running, blocked, or done. " +
+        "The current plan — what is queued, running, blocked, or done. " +
         "Blocked tasks include the reason so you know what to unblock.",
       inputSchema: {
-        workspace_id: workspaceId.optional(),
         status: z
           .enum(["queued", "running", "blocked", "done", "failed"])
           .optional()
@@ -100,7 +98,7 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
       },
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
-    async (args) => run(() => client.call("list-tasks", args)),
+    async (args) => run(() => client.call("list_tasks", args)),
   );
 
   server.registerTool(
@@ -108,10 +106,9 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
     {
       title: "Create a task",
       description:
-        "Add work to a business's plan — a page to build, a piece of research, a fix. " +
+        "Add work to the plan — a page to build, a piece of research, a fix. " +
         "The task is executed by Leapd, not by this MCP server.",
       inputSchema: {
-        workspace_id: workspaceId.optional(),
         title: z.string().min(3).max(200).describe("Short summary of the work."),
         details: z
           .string()
@@ -121,7 +118,7 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
       },
       annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
     },
-    async (args) => run(() => client.call("create-task", args)),
+    async (args) => run(() => client.call("create_task", args)),
   );
 
   server.registerTool(
@@ -133,11 +130,10 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
         "Returns as soon as the task is dispatched — poll list_tasks for the outcome.",
       inputSchema: {
         task_id: z.string().min(1).describe("Task id from list_tasks or create_task."),
-        workspace_id: workspaceId.optional(),
       },
       annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
     },
-    async (args) => run(() => client.call("run-task", args)),
+    async (args) => run(() => client.call("run_task", args)),
   );
 
   server.registerTool(
@@ -145,25 +141,24 @@ export function registerTools(server: McpServer, client: LeapdClient): void {
     {
       title: "List documents",
       description:
-        "Artifacts Leapd has produced for a business — positioning, customer profile, " +
-        "roadmap, research. Returns slugs and titles; use get_document to read one.",
-      inputSchema: { workspace_id: workspaceId.optional() },
+        "Artifacts Leapd has produced — positioning, customer profile, roadmap, research. " +
+        "Returns slugs and titles; use get_document to read one.",
+      inputSchema: {},
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
-    async (args) => run(() => client.call("list-documents", args)),
+    async () => run(() => client.call("list_documents")),
   );
 
   server.registerTool(
     "get_document",
     {
       title: "Read a document",
-      description: "Full contents of one document produced for a business.",
+      description: "Full contents of one document Leapd produced for your business.",
       inputSchema: {
         slug: z.string().min(1).describe("Document slug from list_documents."),
-        workspace_id: workspaceId.optional(),
       },
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
-    async (args) => run(() => client.call("get-document", args)),
+    async (args) => run(() => client.call("get_document", args)),
   );
 }

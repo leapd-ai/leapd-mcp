@@ -7,8 +7,14 @@
 
 import type { LeapdConfig } from "./config.js";
 
-/** Prefix for the MCP-facing surface of the Leapd API. */
-const MCP_ROUTE_PREFIX = "/api/mcp/v1";
+/**
+ * Single entry point for every operation.
+ *
+ * The operation travels in the request body rather than the path, so this
+ * client is coupled to the wire format and not to Leapd's internal routing.
+ * Server-side routing can change without shipping a new client.
+ */
+const MCP_ENDPOINT = "/mcp";
 
 export class LeapdApiError extends Error {
   override readonly name = "LeapdApiError";
@@ -80,13 +86,17 @@ export class LeapdClient {
   constructor(private readonly config: LeapdConfig) {}
 
   /**
-   * Calls one Leapd MCP endpoint.
+   * Invokes one operation.
    *
-   * @param action  Endpoint name, appended to the MCP route prefix.
-   * @param payload Arguments, sent as a JSON body.
+   * Scope comes from the API key, not from the arguments — the caller cannot
+   * name a workspace it does not own.
+   *
+   * @param op     Operation name, matching the MCP tool.
+   * @param params Tool arguments.
    */
-  async call(action: string, payload: Record<string, unknown> = {}): Promise<unknown> {
-    const url = `${this.config.apiBase}${MCP_ROUTE_PREFIX}/${action}`;
+  async call(op: string, params: Record<string, unknown> = {}): Promise<unknown> {
+    const url = `${this.config.apiBase}${MCP_ENDPOINT}`;
+    const payload = { op, params };
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
