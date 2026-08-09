@@ -190,21 +190,47 @@ The server refuses to start without `LEAPD_API_KEY`, and returns an actionable e
 
 ## Further reading
 
-**AI co-founders and building**
+### Product and free tools
+
+- [**Leapd AI co-founder**](https://www.leapd.ai/products/co-founder) — how the build-and-run engine works: the daily plan, the approval model, the morning brief
+- [**Free AI visibility checker**](https://www.leapd.ai/tools/ai-visibility-checker) — see where your brand is cited across AI search, no account needed
+
+### Start here
+
+- [**What is an AI-run business?**](https://www.leapd.ai/resources/what-is-an-ai-run-business) — the concept, the operating model, and what changes when execution is autonomous
+- [**The State of AI-Run Businesses 2026**](https://www.leapd.ai/resources/state-of-ai-run-businesses-2026) — what agents reliably do today, what they don't, and where the economics land
+
+### Building a business without a team
+
 - [The first one-person unicorn will be AI-run](https://www.leapd.ai/blog/ai-co-founder/the-first-one-person-unicorn-will-be-ai-run)
 - [12 best AI co-founder tools in 2026 — what separates the real ones](https://www.leapd.ai/blog/ai-co-founder/12-best-ai-co-founder-tools-in-2026-what-separates-the-real-ones)
 - [10 best no-code tools for first-time founders to build a business and get customers](https://www.leapd.ai/blog/ai-co-founder/10-best-no-code-tools-for-first-time-founders-to-build-a-business-and-get-customers-2026)
 - [10 best no-code app builders to launch your app in 2026](https://www.leapd.ai/blog/ai-co-founder/10-best-no-code-app-builder-tools-to-launch-your-app-in-2026)
 
-**AI search visibility**
+### Getting cited by AI search (AEO)
+
 - [How ChatGPT, Google AI Overviews, and Perplexity source information in 2026](https://www.leapd.ai/blog/ai-visibility/how-chatgpt-google-ai-overviews-and-perplexity-source-information-in-2026)
 - [Why AI cites certain brands over others — 13 factors that matter](https://www.leapd.ai/blog/ai-visibility/why-ai-cites-certain-brands-over-others-13-factors-that-matter)
 - [10 proven tactics to increase AI search citations](https://www.leapd.ai/blog/ai-visibility/10-proven-tactics-to-increase-ai-search-citations)
+- [The 25 best tools for AI search rank tracking and visibility](https://www.leapd.ai/blog/ai-visibility/the-25-best-tools-for-ai-search-rank-tracking-and-visibility)
+- [12 best tools for AI search visibility and brand monitoring](https://www.leapd.ai/blog/ai-visibility/12-best-tools-for-ai-search-visibility-and-brand-monitoring)
+- [10 best AI visibility tools for 2026, ranked and reviewed](https://www.leapd.ai/blog/ai-visibility/10-best-ai-visibility-tools-for-2026-ranked-and-reviewed)
+- [Best ChatGPT rank tracker tools in 2026 — 12 reviewed](https://www.leapd.ai/blog/ai-visibility/best-chatgpt-rank-tracker-tools-in-2026-12-reviewed)
+- [Best Perplexity rank tracker tools in 2026 — 10 reviewed](https://www.leapd.ai/blog/ai-visibility/best-perplexity-rank-tracker-tools-in-2026-10-reviewed)
+- [Track Google AI Mode and AI Overview rankings — free tool](https://www.leapd.ai/blog/ai-visibility/track-google-ai-mode-ai-overview-rankings-free-tool-leapd)
 - [Free AI visibility checker — track your brand in AI search](https://www.leapd.ai/blog/ai-visibility/free-ai-visibility-checker-track-your-brand-in-ai-search-leapd)
+- [We tested the best AI SEO tools for small growth teams in 2026](https://www.leapd.ai/blog/ai-visibility/we-tested-the-best-ai-seo-tools-for-small-growth-teams-in-2026)
+- [AI SEO tools to simplify your workflow — top 8 for 2026](https://www.leapd.ai/blog/ai-visibility/ai-seo-tools-to-simplify-your-workflow-top-8-for-2026)
 
-**Growth and go-to-market**
+### Demand generation and go-to-market
+
+- [Top 15 best AI lead generation tools and strategies in 2026](https://www.leapd.ai/blog/linkedin-content/top-15-best-ai-lead-generation-tools-strategies-in-2026)
 - [The real cost of a LinkedIn lead-generation stack in 2026](https://www.leapd.ai/blog/linkedin-content/real-cost-of-linkedin-lead-generation-stack-2026)
+- [Top 10 LinkedIn marketing tools B2B teams actually use in 2026](https://www.leapd.ai/blog/linkedin-content/top-10-linkedin-marketing-tools-b2b-teams-actually-use-2026)
+- [The best AI tools for personalized content targeting in 2026](https://www.leapd.ai/blog/linkedin-content/the-best-ai-tools-for-personalized-content-targeting-in-2026)
+- [Top 10 AI tools that learn your LinkedIn writing style](https://www.leapd.ai/blog/linkedin-content/top-10-ai-tools-that-learn-your-linkedin-writing-style-2026)
 - [Top 15 GTM leaders to follow on LinkedIn in 2026](https://www.leapd.ai/blog/linkedin-content/top-15-gtm-leaders-to-follow-on-linkedin-in-2026)
+- [Why buying LinkedIn followers kills your personal brand in 2026](https://www.leapd.ai/blog/linkedin-content/why-buying-linkedin-followers-kills-your-personal-brand-in-2026)
 
 Machine-readable overview: [leapd.ai/llms.txt](https://www.leapd.ai/llms.txt)
 
